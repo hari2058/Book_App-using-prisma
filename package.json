@@ -1,0 +1,22 @@
+{
+  "name": "book_app",
+  "version": "1.0.0",
+  "description": "Book App using prisma",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hari2058/Book_App-using-prisma.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hari2058/Book_App-using-prisma/issues"
+  },
+  "homepage": "https://github.com/hari2058/Book_App-using-prisma#readme",
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}
