@@ -13,28 +13,57 @@ datasource db {
   provider = "mysql"
 }
 
-enum BooksStatus {
+enum BookStatus {
   COMPLETED
   IN_PROGRESS
   DROPPED
 }
 
+enum Gender {
+  MALE
+  FEMALE
+  OTHERS
+}
 
 //CREATE table Books
 model books {
-  id           Int         @id @default(autoincrement())
-  title        String
-  description  String?     @db.Text
-  status       BooksStatus @default(IN_PROGRESS)
-  completed_at String?
-  updated_at   DateTime    @updatedAt
-  language     String
+  id             Int         @id @default(autoincrement())
+  title          String
+  description    String?     @db.Text
+  published_date DateTime?   @db.Date
+  status         BookStatus? @default(IN_PROGRESS)
+  completed_at   DateTime?   @db.Date
+  updated_at     DateTime    @updatedAt
+  language       String
+  author_id      Int?
+  author         authors?    @relation(fields: [author_id], references: [id])
+  genre_id       Int?
+  genre          genre?      @relation(fields: [genre_id], references: [id])
+}
+
+model authors {
+  id          Int       @id @default(autoincrement())
+  author_name String    @unique
+  bio         String?   @db.Text
+  birth_date  String 
+  died        String?
+  updated_at  DateTime  @updatedAt
+  books       books[]
+}
+
+model genre {
+  id          Int      @id @default(autoincrement())
+  genre_title String   @unique
+  description String?
+  updated_at  DateTime @updatedAt
+  books       books[]
 }
 
 model users {
   id         Int      @id @default(autoincrement())
   username   String   @unique
   email      String   @unique
+  gender     Gender 
   password   String   @db.VarChar(15)
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt

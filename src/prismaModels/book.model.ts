@@ -1,17 +1,16 @@
+
 import { Prisma } from "../generated/prisma/client";
 import { prisma } from "../lib/prisma";
 
 export async function createBooks(data: Prisma.booksCreateInput) {
-  if (!data.status) {
-    throw new Error(`Please send valid status.`);
-  }
   const createdBooks = await prisma.books.create({
     data: {
       title: data.title,
       description: data.description || null,
       language: data.language,
-      status: data.status,
-      completed_at: data.completed_at || null
+      status: data.status ?? null,
+      completed_at: data.completed_at || null,
+      published_date: data.published_date || null,
     },
   });
   return createdBooks;
@@ -57,11 +56,9 @@ export async function deleteBooks(id: number) {
     },
   });
 
-  if(!bookFound) {
+  if (!bookFound) {
     throw new Error(`Book not found by id-${id}`);
   }
-    
-  
 
   const deletedBook = await prisma.books.delete({
     where: {
