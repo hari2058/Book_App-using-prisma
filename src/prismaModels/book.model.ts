@@ -14,7 +14,7 @@ export async function createBooks(data: BooksCreateInput) {
         ? new Date(data.published_date)
         : null,
       author_id: data.author_id,
-      // genre: data.genre,
+      genre_id: data.genre_id,
     },
   });
   return createdBooks;
@@ -29,11 +29,11 @@ export async function getAllBooks() {
           birth_date: true,
         },
       },
-      // genre: {
-      //   select: {
-      //     genre_title: true,
-      //   },
-      // },
+      genre: {
+        select: {
+          genre_title: true,
+        },
+      },
     },
   });
 

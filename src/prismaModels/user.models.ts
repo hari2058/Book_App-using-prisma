@@ -1,7 +1,6 @@
 import { TLoginUserSchema } from "../controllers/users/loginUserControllers";
 import { TSignUpUserSchema } from "../controllers/users/signupUserControllers";
 import { TUpdateUserSchema } from "../controllers/users/updateUserController";
-import { Prisma } from "../generated/prisma/client";
 import { prisma } from "../lib/prisma";
 
 export async function signUpUser(data: TSignUpUserSchema) {
@@ -99,3 +98,5 @@ export async function deleteUser(id: number) {
 
   return deletedUser;
 }
+
+

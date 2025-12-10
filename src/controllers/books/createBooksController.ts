@@ -11,7 +11,7 @@ export type BooksCreateInput = {
   updated_at?: Date | string;
   language: string;
   author_id: number;
-  // genre: Prisma.genreCreateNestedOneWithoutBooksInput;
+  genre_id: number;
 };
 
 export async function createBooksControllers(req: Request, res: Response) {
