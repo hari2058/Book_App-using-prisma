@@ -17,14 +17,18 @@ export async function getAllAuthors(whereInput: {
   author_name?: string;
   birth_Date?: string;
 }) {
-  let tempWhereInput: Prisma.authorsWhereInput = {};
+  let tempWhereInput: Prisma.authorsWhereInput = {
+    OR:[
+
+    ]
+  };
 
   if (whereInput.author_name) {
-    tempWhereInput.birth_date = whereInput.author_name;
+    tempWhereInput.OR?.push({author_name: whereInput.author_name})
   }
 
-  if (whereInput.author_name) {
-    tempWhereInput.author_name = whereInput.author_name;
+  if (whereInput.birth_Date) {
+     tempWhereInput.OR?.push({birth_date: whereInput.birth_Date});
   }
 
   const authorsData = await prisma.authors.findMany({

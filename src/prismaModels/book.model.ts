@@ -27,56 +27,25 @@ export async function getAllBooks(whereInput: {
   author_id?: number;
   genreId?: number;
 }) {
-  let tempWhereInput: Prisma.booksWhereInput = {};
+  let tempWhereInput: Prisma.booksWhereInput = {
+    OR:[
+     
+
+    ]
+  };
 
   if (whereInput.status) {
-    tempWhereInput.status = whereInput.status;
+    tempWhereInput.OR?.push({status: whereInput.status})
   }
   if (whereInput.author_id) {
-    tempWhereInput.author_id = whereInput.author_id;
+     tempWhereInput.OR?.push({ author_id: whereInput.author_id });
   }
 
   if (whereInput.genreId) {
-    tempWhereInput.genreId = whereInput.genreId;
+    tempWhereInput.OR?.push({ genreId: whereInput.genreId });
   }
 
-  // if (whereInput.status) {
-  //   tempWhereInput.status = whereInput.status;
-
-  //   const authorFound = await prisma.books.findFirst({
-  //     where: {
-  //       status: whereInput.status,
-  //     },
-  //   });
-  //   if (!authorFound) {
-  //     throw new Error(`Book not found by status-${whereInput.status}`);
-  //   }
-  // }
-
-  // if (whereInput.author_id) {
-  //   tempWhereInput.author_id = whereInput.author_id;
-
-  //   const authorFound = await prisma.books.findFirst({
-  //     where: {
-  //       author_id: whereInput.author_id,
-  //     },
-  //   });
-  //   if (!authorFound) {
-  //     throw new Error(`Book not found by author_id-${whereInput.author_id}`);
-  //   }
-  // }
-  // if (whereInput.genreId) {
-  //   tempWhereInput.genreId = whereInput.genreId;
-
-  //   const authorFound = await prisma.books.findFirst({
-  //     where: {
-  //       genreId: whereInput.genreId,
-  //     },
-  //   });
-  //   if (!authorFound) {
-  //     throw new Error(`Book not found by genreId-${whereInput.genreId}`);
-  //   }
-  // }
+ 
 
   const allBooks = await prisma.books.findMany({
     where: tempWhereInput,

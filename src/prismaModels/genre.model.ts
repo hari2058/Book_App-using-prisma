@@ -1,4 +1,5 @@
 import { CreateGenreInputs } from "../controllers/genre/createGenreController";
+import { Prisma } from "../generated/prisma/client";
 import { prisma } from "../lib/prisma";
 
 export async function createGenre(data: CreateGenreInputs) {
@@ -12,8 +13,28 @@ export async function createGenre(data: CreateGenreInputs) {
   return createdGenre;
 }
 
-export async function getAllGenre() {
-  const allGenre = await prisma.genre.findMany();
+export async function getAllGenre(whereInput: { genre_title: string }) {
+  let tempWhereInput: Prisma.genreWhereInput = {};
+
+  if (whereInput.genre_title) {
+    tempWhereInput.genre_title = whereInput.genre_title;
+  }
+  const allGenre = await prisma.genre.findMany({
+    where: tempWhereInput,
+    include: {
+      books: {
+        select: {
+          title: true,
+          author: {
+            select: {
+              author_name: true,
+              bio: true,
+            },
+          },
+        },
+      },
+    },
+  });
 
   return allGenre;
 }
@@ -58,7 +79,6 @@ export async function updateGenre(id: number, data: CreateGenreInputs) {
 
 export async function deleteGenre(id: number) {
   const userFound = await getGenreById(id);
-  
 
   const deletedGenre = await prisma.genre.delete({
     where: {
