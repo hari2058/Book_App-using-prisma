@@ -13,8 +13,31 @@ export async function createAuthors(data: Prisma.authorsCreateInput) {
   return createdAuthors;
 }
 
-export async function getAllAuthors() {
-  const authorsData = await prisma.authors.findMany();
+export async function getAllAuthors(whereInput: {
+  author_name?: string;
+  birth_Date?: string;
+}) {
+  let tempWhereInput: Prisma.authorsWhereInput = {};
+
+  if (whereInput.author_name) {
+    tempWhereInput.birth_date = whereInput.author_name;
+  }
+
+  if (whereInput.author_name) {
+    tempWhereInput.author_name = whereInput.author_name;
+  }
+
+  const authorsData = await prisma.authors.findMany({
+    where: tempWhereInput,
+    include: {
+      books: {
+        select: {
+          title: true,
+          status: true,
+        },
+      },
+    },
+  });
 
   return authorsData;
 }
