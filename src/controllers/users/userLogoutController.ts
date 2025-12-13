@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { loggedInUsers } from "./loginUserControllers";
 
 export function userLogoutController(req: Request, res: Response) {
-  const token = req.query.token;
+  const token = req.cookies.token;
 
   if (!token) {
     throw new Error(`You are not logged in!`);
@@ -18,6 +18,8 @@ export function userLogoutController(req: Request, res: Response) {
     loggedInUsers.indexOf(userFound),
     1
   );
+
+  res.clearCookie("token");
 
   res.json({
     message: "you are logged out!",

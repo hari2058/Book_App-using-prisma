@@ -3,10 +3,12 @@ import { booksRouter } from "./Router/books.router";
 import { authorsRouter } from "./Router/authors.router";
 import { UserRouter } from "./Router/user.router";
 import { genreRouter } from "./Router/genre.router";
+import cookieParser from "cookie-parser";
 
 const app = express();
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.get("/", (req, res) => {
   res.json({

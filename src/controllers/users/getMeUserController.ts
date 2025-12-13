@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { loggedInUsers } from "./loginUserControllers";
 
 export async function getMeUserController(req: Request, res: Response) {
-  const token = req.query.token;
+  const token = req.cookies.token;
 
   if (!token) {
     throw new Error(`You are not logged in!`);

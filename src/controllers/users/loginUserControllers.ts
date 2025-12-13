@@ -1,8 +1,6 @@
 import { Request, Response } from "express";
 import { loginUser } from "../../prismaModels/user.models";
 import z from "zod";
-import { comparePassword } from "../../lib/hash";
-import { use } from "react";
 
 const LoginUserSchema = z.object({
   username: z.string().min(3).max(30),
@@ -31,6 +29,10 @@ export const logInUserController = async (req: Request, res: Response) => {
   const randomString = randomNum.toString();
 
   loggedInUsers.push(randomString);
+
+  res.cookie("token", randomString, {
+    httpOnly: true,
+  });
 
   res.json({
     message: " Logged in",

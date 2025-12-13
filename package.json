@@ -18,6 +18,7 @@
   "homepage": "https://github.com/hari2058/Book_App-using-prisma#readme",
   "devDependencies": {
     "@ljharb/tsconfig": "^0.3.2",
+    "@types/cookie-parser": "^1.4.10",
     "@types/express": "^5.0.6",
     "@types/node": "^24.10.1",
     "dotenv": "^17.2.3",
@@ -28,6 +29,7 @@
     "@prisma/adapter-mariadb": "^7.1.0",
     "@prisma/client": "^7.1.0",
     "bcryptjs": "^3.0.3",
+    "cookie-parser": "^1.4.7",
     "express": "^5.2.1",
     "tsx": "^4.21.0",
     "zod": "^4.1.13"

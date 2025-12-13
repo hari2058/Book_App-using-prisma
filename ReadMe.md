@@ -130,3 +130,13 @@ npm install zod
 npm install bcryptjs
 ```
 
+## install cookie package for session management and authintication
+```bash 
+npm install cookie-parser
+
+npm install -D @types/cookie-parser
+
+```
+
+
+
