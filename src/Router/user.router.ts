@@ -10,8 +10,6 @@ import { userLogoutController } from "../controllers/users/userLogoutController"
 import { accessControlCheck } from "../middleware/accessControlCheck";
 import { generateAccessControlMiddleware } from "../middleware/generateAccessControllerMiddleware";
 import { checkAuth } from "../middleware/checkAuth";
-// import { checkAuth } from "../middleware/checkAuth";
-// import { generateAccessControlMiddleware } from "../middleware/generateAccessControlMiddleware";
 
 export async function UserRouter(app: Application) {
   //sign up

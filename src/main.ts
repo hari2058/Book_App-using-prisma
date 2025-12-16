@@ -1,3 +1,19 @@
+
+import { Role, users } from "./generated/prisma/client";
+
+declare global {
+  namespace Express {
+    export interface Request {
+      user?: {
+        id: number;
+        email: string;
+        username: string;
+        role: Role;
+      } ;
+    }
+  }
+}
+
 import express from "express";
 import { booksRouter } from "./Router/books.router";
 import { authorsRouter } from "./Router/authors.router";

@@ -5,7 +5,7 @@ export async function checkSuperAdminRole(
   res: Response,
   next: NextFunction
 ) {
-  const userRole = req.user.role;
+  const userRole = req.user?.role;
 
   if (userRole !== "SUPER_ADMIN") {
     res.status(403).json({
@@ -21,7 +21,7 @@ export async function checkAdminRole(
   res: Response,
   next: NextFunction
 ) {
-  const userRole = req.user.role;
+  const userRole = req.user?.role;
 
   if (userRole !== "ADMIN") {
     res.status(403).json({
@@ -37,7 +37,7 @@ export async function checkUserRole(
   res: Response,
   next: NextFunction
 ) {
-  const userRole = req.user.role;
+  const userRole = req.user?.role;
 
   if (userRole !== "USER") {
     res.status(403).json({

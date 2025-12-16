@@ -27,6 +27,7 @@ export async function accessControlCheck(
     res.status(401).json({
       message: "your session not found! please login again",
     });
+    return;
   }
 
   req.user = userSession?.user;

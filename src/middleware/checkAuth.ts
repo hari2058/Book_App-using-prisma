@@ -23,13 +23,14 @@ export async function checkAuth(
     },
   });
 
-  if (!userSession) {
+  if (!userSession ) {
     res.status(401).json({
       message: "your session not found! please login again",
     });
+    return;
   }
 
-  req.user = userSession?.user;
+  req.user = userSession.user;
 
   next();
 }
