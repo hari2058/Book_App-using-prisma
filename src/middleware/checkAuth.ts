@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { prisma } from "../lib/prisma";
+import { verifyToken } from "../lib/token";
 
 export async function checkAuth(
   req: Request,
@@ -12,25 +13,34 @@ export async function checkAuth(
     res.status(401).json({
       message: "You are not logged in!",
     });
+   
   }
 
-  const userSession = await prisma.userSession.findFirst({
-    where: {
-      session_id: token,
-    },
-    include: {
-      user: true,
-    },
-  });
+  // const userSession = await prisma.userSession.findFirst({
+  //   where: {
+  //     session_id: token,
+  //   },
+  //   include: {
+  //     user: true,
+  //   },
+  // });
 
-  if (!userSession ) {
+  // if (!userSession ) {
+  //   res.status(401).json({
+  //     message: "your session not found! please login again",
+  //   });
+  //   return;
+  // }
+
+  const userPayLoad = verifyToken(token);
+
+  if (!userPayLoad) {
     res.status(401).json({
-      message: "your session not found! please login again",
+      message: `Error verifying token! Please login again.`,
     });
     return;
   }
-
-  req.user = userSession.user;
+  req.user = userPayLoad;
 
   next();
 }

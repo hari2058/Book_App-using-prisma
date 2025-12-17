@@ -17,20 +17,20 @@ export async function UserRouter(app: Application) {
   //login
   app.post("/users/login", logInUserController);
 
-  //get all user
-  app.get(
-    "/users",
-    checkAuth,
-    generateAccessControlMiddleware(["SUPER_ADMIN"]),
-    getAllUserController
-  );
-
   //getme
   app.get(
     "/users/me",
     checkAuth,
     generateAccessControlMiddleware(["SUPER_ADMIN", "ADMIN", "USER"]),
     getMeUserController
+  );
+
+  //get all user
+  app.get(
+    "/users",
+    checkAuth,
+    generateAccessControlMiddleware(["SUPER_ADMIN"]),
+    getAllUserController
   );
 
   //get user by id

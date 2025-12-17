@@ -1,14 +1,16 @@
 import { NextFunction, Request, Response } from "express";
+import { Role } from "../generated/prisma/enums";
 
-type Role = "SUPER_ADMIN" | "ADMIN" | "USER";
+
 
 export function generateAccessControlMiddleware(roles: Role[]) {
   return (req: Request, res: Response, next: NextFunction) => {
-    const userRole = req.user?.role;
+    const userRole = req.user.role;
+    console.log("userrole = ", userRole)
 
     if (!userRole) {
       res.status(401).json({
-        message: `Your user role not found`,
+        message: `Your user role not found........`,
       });
       return;
     }
