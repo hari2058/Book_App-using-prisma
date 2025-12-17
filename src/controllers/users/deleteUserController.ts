@@ -7,7 +7,7 @@ export const deleteUserController = async (req: Request, res: Response) => {
   if (!token) {
     throw new Error(`You are not logged in!`);
   }
-  const paramsUserId = Number(params.userId);
+  const paramsUserId = Number(token.userId);
 
   const userId = req.user.id;
   if (!userId) {

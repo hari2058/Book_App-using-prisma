@@ -1,9 +1,9 @@
-import { Role } from "./generated/prisma/client";
+// import { Role } from "./generated/prisma/client";
 
 declare global {
   namespace Express {
     export interface Request {
-      user?: {
+      user: {
         id: number;
         email: string;
         username: string;
@@ -19,6 +19,7 @@ import { authorsRouter } from "./Router/authors.router";
 import { UserRouter } from "./Router/user.router";
 import { genreRouter } from "./Router/genre.router";
 import cookieParser from "cookie-parser";
+import { Role } from "./generated/prisma/enums";
 
 const app = express();
 
