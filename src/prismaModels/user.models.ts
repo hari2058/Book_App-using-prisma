@@ -1,7 +1,6 @@
 import { TLoginUserSchema } from "../controllers/users/loginUserControllers";
 import { TSignUpUserSchema } from "../controllers/users/signupUserControllers";
 import { TUpdateUserSchema } from "../controllers/users/updateUserController";
-import { Role } from "../generated/prisma/enums";
 import { comparePassword } from "../lib/hash";
 import { prisma } from "../lib/prisma";
 

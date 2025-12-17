@@ -44,6 +44,11 @@ export const logInUserController = async (req: Request, res: Response) => {
 
   res.cookie("token", randomString, {
     httpOnly: true,
+    maxAge: 1000 * 60 * 1,
+    domain: "localhost",
+    secure: false,
+    sameSite: "lax",
+    path: "/",
   });
 
   res.json({

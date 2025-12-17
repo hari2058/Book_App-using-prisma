@@ -7,7 +7,6 @@ import { deleteUserController } from "../controllers/users/deleteUserController"
 import { logInUserController } from "../controllers/users/loginUserControllers";
 import { getMeUserController } from "../controllers/users/getMeUserController";
 import { userLogoutController } from "../controllers/users/userLogoutController";
-import { accessControlCheck } from "../middleware/accessControlCheck";
 import { generateAccessControlMiddleware } from "../middleware/generateAccessControllerMiddleware";
 import { checkAuth } from "../middleware/checkAuth";
 

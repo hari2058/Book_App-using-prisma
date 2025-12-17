@@ -2,7 +2,11 @@ import { Request, Response } from "express";
 import { deleteUser } from "../../prismaModels/user.models";
 
 export const deleteUserController = async (req: Request, res: Response) => {
-  const params = req.params;
+  const token = req.cookies.token;
+
+  if (!token) {
+    throw new Error(`You are not logged in!`);
+  }
   const paramsUserId = Number(params.userId);
 
   const userId = req.user.id;
