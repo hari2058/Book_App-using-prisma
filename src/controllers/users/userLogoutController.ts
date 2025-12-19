@@ -9,11 +9,11 @@ export async function userLogoutController(req: Request, res: Response) {
     throw new Error(`You are not logged in!`);
   }
 
-  // const userFound = loggedInUsers.find((userToken) => userToken === token);
+  const user = req.user;
 
-  const userFound = await prisma.userSession.findFirst({
+  const userFound = await prisma.users.findFirst({
     where: {
-      session_id: token,
+      id: user.id,
     },
   });
 
@@ -26,7 +26,7 @@ export async function userLogoutController(req: Request, res: Response) {
   //   1
   // );
 
-  await prisma.userSession.delete({
+  await prisma.users.delete({
     where: {
       id: userFound.id,
     },
@@ -35,6 +35,6 @@ export async function userLogoutController(req: Request, res: Response) {
   res.clearCookie("token");
 
   res.json({
-    message: "you are logged out!",
+    message: `Account logged bou by User_Name -${user.username}`,
   });
 }

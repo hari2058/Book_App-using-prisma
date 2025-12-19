@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { loginUser } from "../../prismaModels/user.models";
 import z from "zod";
-import { prisma } from "../../lib/prisma";
 import { generateToken } from "../../lib/token";
 import { ENV } from "../../lib/env";
 
@@ -37,32 +36,42 @@ export const logInUserController = async (req: Request, res: Response) => {
   // const randomNum = Math.floor(Math.random() * 100000);
   // const randomString = randomNum.toString();
 
-  const token = generateToken({
+  const token = generateToken(
+    {
+      id: user.id,
+      username: user.username,
+      email: user.email,
+      role: user.role,
+    },
+    ENV.JWT_EXPIRATION_TIME_IN_SECONDS
+  );
+
+  const refreshToken = generateToken({
     id: user.id,
     username: user.username,
     email: user.email,
     role: user.role,
-  });
-
-  // loggedInUsers.push(randomString);
-  // await prisma.userSession.create({
-  //   data: {
-  //     user_id: user.id,
-  //     session_id: randomString,
-  //   },
-  // });
+  }, ENV.REFRESH_TOKEN_EXPIRATION_TIME_IN_SECONDS);
 
   res.cookie("token", token, {
     httpOnly: true,
-    maxAge: ENV.JWT_EXPIRATION_TIME_IN_SECONDS *1000 ,
+    maxAge: ENV.JWT_EXPIRATION_TIME_IN_SECONDS * 1000,
     domain: "localhost",
     secure: false,
     sameSite: "lax",
     path: "/",
   });
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      maxAge: ENV.REFRESH_TOKEN_EXPIRATION_TIME_IN_SECONDS * 1000,
+      domain: "localhost",
+      secure: false,
+      sameSite: "lax",
+      path: "/",
+    });
 
   res.json({
     message: " Logged in",
-    data: { ...user, token: token },
+    data: { ...user },
   });
 };

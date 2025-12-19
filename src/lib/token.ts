@@ -9,9 +9,9 @@ type TTokenPayLoad = {
   username: string;
   role: Role;
 };
-export function generateToken(userPayLoad: TTokenPayLoad) {
+export function generateToken(userPayLoad: TTokenPayLoad, expiryTimeInSeconds: number) {
   const token = jwt.sign(userPayLoad, ENV.JWT_SECRET, {
-    expiresIn: ENV.JWT_EXPIRATION_TIME_IN_SECONDS, // 15 min
+    expiresIn: expiryTimeInSeconds, // 15 min
   });
 
   return token;

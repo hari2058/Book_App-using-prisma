@@ -8,7 +8,8 @@ import { logInUserController } from "../controllers/users/loginUserControllers";
 import { getMeUserController } from "../controllers/users/getMeUserController";
 import { userLogoutController } from "../controllers/users/userLogoutController";
 import { generateAccessControlMiddleware } from "../middleware/generateAccessControllerMiddleware";
-import { checkAuth } from "../middleware/checkAuth";
+import { checkAuth, checkRefreshToken } from "../middleware/checkAuth";
+import { refreshTokenController } from "../controllers/users/refreshTokenController";
 
 export async function UserRouter(app: Application) {
   //sign up
@@ -24,6 +25,8 @@ export async function UserRouter(app: Application) {
     generateAccessControlMiddleware(["SUPER_ADMIN", "ADMIN", "USER"]),
     getMeUserController
   );
+
+  app.get("/users/refresh-token", checkRefreshToken, refreshTokenController);
 
   //get all user
   app.get(

@@ -14,12 +14,14 @@ export const deleteUserController = async (req: Request, res: Response) => {
     res.status(401).json({
       message: `You are not authorized`,
     });
+    return;
   }
 
   if (paramsUserId !== userId) {
     res.status(401).json({
       message: "You can only access your data.",
     });
+    return; 
   }
 
   const user = await deleteUser(userId);
