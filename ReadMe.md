@@ -144,4 +144,10 @@ npm install -D @types/jsonwebtoken
 
 ```
 
+## for rate limiting
+```bash 
+npm install express-rate-limit
+
+```
+
 
