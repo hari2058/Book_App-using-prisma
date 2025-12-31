@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from "express";
-import { prisma } from "../lib/prisma";
 import { verifyToken } from "../lib/token";
 
 export async function checkAuth(
