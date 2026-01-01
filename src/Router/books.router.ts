@@ -5,11 +5,12 @@ import { getBookByIdControllers } from "../controllers/books/getBookByIdControll
 import { updateBooksControllers } from "../controllers/books/updateBooksControllers";
 import { deleteBookControllers } from "../controllers/books/deleteBookControllers";
 import rateLimit from "express-rate-limit";
+import {  customRateLimiter } from "../middleware/rateLimiter";
 
 export async function booksRouter(app: Application) {
   app.post("/books", rateLimit, createBooksControllers);
 
-  app.get("/books", getAllBooksControllers, rateLimit);
+  app.get("/books",customRateLimiter, getAllBooksControllers );
 
   app.get("/books/:bookId",rateLimit, getBookByIdControllers);
 
